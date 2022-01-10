@@ -1,3 +1,4 @@
+@ignore
 Feature: Tests for the home page
 
   Background: Define URL
