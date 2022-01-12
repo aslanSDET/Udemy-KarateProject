@@ -10,19 +10,40 @@ Feature: Tests for the home page
     Then status 200
     And match response.tags contains ['welcome','codebaseShow']
     And match response.tags !contains "truck"
+    And match response.tags contains any ['welcome', 'don't match', 'don't match02']
     #Check if response type is array
     And match response.tags == "#array"
     #Check if each tag at response type is string
     And match each response.tags == "#string"
 
   Scenario: Get 10 articles from page
+    * def timeValidator = read('classpath:helpers/timeValidator.js')
+
     Given params { limit = 10, offset: 0}
     Given path "articles"
     When method get
     Then status 200
-    #Checks if the article array size is 3
-    And match response.articles == "#[10]"
-    #Check if "articlesCount" field is equal to
-    # 3 in response Message
-    #And match response.articlesCount == 10
+    #Verify multiple things in one response. Type verification and value verification
+    And match response == { "articles": "#[10]", "articlesCount" :53}
+    #Schema Validation
+    And match each response.articles ==
+    """
+        {
+            "slug": "#string",
+            "title": "#string",
+            "description": "#string",
+            "body": "#string",
+            "createdAt": "#? timeValidator(_)",
+            "updatedAt": "#? timeValidator(_)",
+            "tagList": "#array",
+            "author": {
+                "username": "#string",
+                "bio": "##string",
+                "image": "#string",
+                "following": "#boolean"
+            },
+            "favoritesCount": "#number",
+            "favorited": "#boolean"
+        }
+    """
 
