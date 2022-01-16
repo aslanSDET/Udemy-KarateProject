@@ -24,6 +24,7 @@ class ConduitTest {
     void testParallel() {
         Results results = Runner.path("classpath:ConduitApp")
                 .outputCucumberJson(true)
+                //.outputJunitXml(true)
                 .parallel(4);
         generateReport(results.getReportDir());
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
@@ -34,6 +35,7 @@ class ConduitTest {
         List<String> jsonPaths = new ArrayList<>(jsonFiles.size());
         jsonFiles.forEach(file -> jsonPaths.add(file.getAbsolutePath()));
         Configuration config = new Configuration(new File("target"), "API");
+        config.addPresentationModes(PresentationMode.RUN_WITH_JENKINS);
         ReportBuilder reportBuilder = new ReportBuilder(jsonPaths, config);
         reportBuilder.generateReports();
     }
