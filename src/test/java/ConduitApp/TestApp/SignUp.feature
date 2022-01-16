@@ -21,6 +21,7 @@ Feature: Sign Up new user
       #     }
       # """
       Given path 'users'
+      * print randomEmail
       And request
       """
       {

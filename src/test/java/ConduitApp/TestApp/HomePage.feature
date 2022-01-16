@@ -1,4 +1,3 @@
-@ignore
 Feature: Tests for the home page
 
   Background: Define URL
@@ -24,7 +23,7 @@ Feature: Tests for the home page
     When method get
     Then status 200
     #Verify multiple things in one response. Type verification and value verification
-    And match response == { "articles": "#[10]", "articlesCount" :53}
+    And match response == { "articles": "#[10]", "articlesCount" :"#number"}
     #Schema Validation
     And match each response.articles ==
     """
