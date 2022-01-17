@@ -1,11 +1,11 @@
-@ignore
+
 Feature: Home Work
 
   Background: Preconditions
     * url apiUrl
     * def articleFavIncreaseRequestBody = read('classpath:ConduitApp/json/articleFavIncreaseRequest.json')
     * def timeValidator = read('classpath:helpers/timeValidator.js')
-  @debug
+
   Scenario: Favorite articles
         # Step 1: Get atricles of the global feed
 

@@ -5,13 +5,10 @@ import com.intuit.karate.Results;
 import com.intuit.karate.Runner;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.presentation.PresentationMode;
-import net.masterthought.cucumber.sorting.SortingMethod;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +21,7 @@ class ConduitTest {
     void testParallel() {
         Results results = Runner.path("classpath:ConduitApp")
                 .outputCucumberJson(true)
-                .parallel(4);
+                .parallel(1);
         generateReport(results.getReportDir());
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
